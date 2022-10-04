@@ -68,6 +68,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 else{
                     self.title = "Not Hotdog!"
                 }
+                DispatchQueue.main.async {
+                    self.whatis(firstResult.identifier)
+                }
+        
             }
         })
         
@@ -78,6 +82,18 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         } catch {
             print(error)
         }
+    }
+    
+    func whatis(_ name: String){
+        let alertTitle = name.contains("hotdog") ? "Hotdog!" : "Not Hotdog!"
+        let alertMessage = name.contains("hotdog") ? "" : "Probably it is \(name)"
+        
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Ok", style: .default)
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
         
 }
